@@ -1,8 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Modal from "@/app/components/modal/page";
-import Link from "next/link";
+// import Link from "next/link";
+import Image from "next/image";
+import EventDetailModal from "../event-detail-modal/page";
+import NewEntryModal from "../new-entry/page";
 
 const arenas = [
   {
@@ -18,6 +20,7 @@ const arenas = [
     entry: "Free for all",
     date: "12th June, 2024",
     creator: "Usman Mustapha",
+    website: "http://www.playchess.com/tournam....",
   },
   {
     id: 2,
@@ -32,6 +35,7 @@ const arenas = [
     entry: "Invite Only",
     date: "19th July, 2024",
     creator: "Adeola Benson",
+    website: "http://www.playchess.com/tournam....",
   },
   {
     id: 3,
@@ -46,6 +50,7 @@ const arenas = [
     entry: "Invite only",
     date: "14th July, 2024",
     creator: "Esther James",
+    website: "http://www.playchess.com/tournam....",
   },
   {
     id: 4,
@@ -60,6 +65,7 @@ const arenas = [
     entry: "Free for all",
     date: "9th May, 2024",
     creator: "Samuel Ade",
+    website: "http://www.playchess.com/tournam....",
   },
   {
     id: 5,
@@ -74,15 +80,17 @@ const arenas = [
     entry: "Restricted",
     date: "1st August, 2024",
     creator: "Fatima Bello",
+    website: "http://www.playchess.com/tournam....",
   },
 ];
 
-const tabs = ["Ongoing", "Pending", "Declined", "Specials"];
+const tabs = ["Pending", "Displayed", "Declined"];
 
-export default function ArenaPage() {
+export default function EventCalenderPage() {
   const [activeTab, setActiveTab] = useState("Ongoing");
   const [showModal, setShowModal] = useState(false);
   const [selectedArena, setSelectedArena] = useState(null);
+  const [showNewEntryModal, setShowNewEntryModal] = useState(false);
 
   const filteredArenas = arenas.filter((arena) => arena.status === activeTab);
 
@@ -116,11 +124,12 @@ export default function ArenaPage() {
           ))}
         </div>
 
-        <Link href="/pages/create-arena">
-          <button className="gap-[10px] opacity-100 px-8 py-4 rounded-[12px] bg-[#D4AF37] text-white font-aeonik font-bold text-base leading-[100%] tracking-normal cursor-pointer">
-            Create Arena
-          </button>
-        </Link>
+        <button
+          onClick={() => setShowNewEntryModal(true)}
+          className="gap-[10px] opacity-100 px-8 py-4 rounded-[12px] bg-[#D4AF37] text-white font-aeonik font-bold text-base leading-[100%] tracking-normal cursor-pointer"
+        >
+          New Entry
+        </button>
       </div>
 
       {/* Arena List */}
@@ -128,11 +137,22 @@ export default function ArenaPage() {
         {filteredArenas.map((arena, index) => (
           <div
             key={arena.id}
-            className={`border-b border-[#DEDEDE] pb-4 flex justify-between items-start ${
+            className={`border-b border-[#DEDEDE] pb-4 flex gap-4 justify-between items-start ${
               index === 0 ? "mt-[60px]" : ""
             }`}
           >
-            <div>
+            <div className="w-[100px] h-[100px] flex-shrink-0 bg-gray-100 rounded overflow-hidden">
+              <Image
+                src="/images/arena.jpg"
+                alt="Arena"
+                width={100}
+                height={100}
+                className="object-cover w-full h-full"
+              />
+            </div>
+
+            {/* Middle content dat grows */}
+            <div className="flex-grow px-4">
               <h2 className="font-aeonik font-bold text-xl leading-[100%] tracking-normal mb-3">
                 {arena.title}
               </h2>
@@ -141,54 +161,94 @@ export default function ArenaPage() {
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.type}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.players}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.duration}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.prize}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.visibility}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.mode}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.entry}
                 </span>
-                <span>&bull;</span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
                 <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal">
                   {arena.date}
                 </span>
+                <span className="text-lg font-bold leading-none text-black">
+                  &bull;
+                </span>
+
+                <span className="font-aeonik font-normal text-base leading-[160%] tracking-normal text-[#d4af37]">
+                  {arena.website}
+                </span>
               </div>
-              
+
               <p className="font-aeonik font-normal text-sm leading-[160%] tracking-[0.0125em] mt-3">
                 Created by {arena.creator}
               </p>
             </div>
 
-            <button
-              onClick={() => openModal(arena)}
-              className="items-center gap-[10px] opacity-100 px-8 py-4 rounded-[12px] border border-[#D4AF37] text-[#D4AF37] cursor-pointer"
-            >
-              View details
-            </button>
+            {/* Button */}
+            <div className="flex-shrink-0">
+              <button
+                onClick={() => openModal(arena)}
+                className="px-6 py-3 rounded-[12px] border border-[#D4AF37] text-[#D4AF37] cursor-pointer"
+              >
+                View details
+              </button>
+            </div>
           </div>
         ))}
       </div>
 
       {/* Modal */}
       {showModal && selectedArena && (
-        <Modal isOpen={showModal} onClose={closeModal} data={selectedArena} />
+        <EventDetailModal
+          isOpen={showModal}
+          onClose={closeModal}
+          data={selectedArena}
+        />
+      )}
+
+      {/* entry modal */}
+      {showNewEntryModal && (
+        <NewEntryModal onClose={() => setShowNewEntryModal(false)} />
       )}
     </div>
   );

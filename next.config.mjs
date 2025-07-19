@@ -2,9 +2,12 @@
 const nextConfig = {
   output: 'export',
   distDir: 'out',
-  images: { unoptimized: true }, 
-  basePath: '/keen-chess', 
-  trailingSlash: true, 
+  basePath: '/keen-chess',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
+
