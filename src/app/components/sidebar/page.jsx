@@ -41,6 +41,7 @@ export default function Sidebar() {
         <NavItem href="/" label="Dashboard" />
         <NavItem href="/pages/arena" label="Arena" />
         <NavItem href="/components/event-calender/" label="Event Calender" />
+        <NavItem href="/abuse"  label="Abuse"/>
 
         {/* Collapsible Trivia Section */}
         <div className="flex flex-col">
