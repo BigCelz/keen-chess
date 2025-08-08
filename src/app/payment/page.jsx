@@ -8,7 +8,7 @@ import WithdrawalPage from "./withdrawal/page";
 
 const tabs = ["Products", "Orders", "Membership Cancellation", "Withdrawal"];
 
-export default function PaymentPage() {
+export const PaymentPage = () => {
   const [activeTab, setActiveTab] = useState("Products");
 
   return (
