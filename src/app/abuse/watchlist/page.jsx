@@ -14,7 +14,7 @@ const WatchlistPage = ({ activeTab = "Watchlist" }) => {
   return (
     <div>
       <h1 className="font-Aeonik font-bold text-[24px] leading-[120%] tracking-[0%] border-b border-[#DEDEDE] pb-6">
-        Abuse Watchlist
+        Watchlist
       </h1>
 
       <div className="space-y-6">
